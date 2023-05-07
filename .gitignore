@@ -1,4 +1,4 @@
 .idea
-**/*__pychache__*
 .cache
 build
+molecule/default/tests/__pycache__/
