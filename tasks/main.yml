@@ -5,3 +5,10 @@
   ansible.builtin.import_tasks: requirements.yml
   when:
     - standalone_role
+
+- name: Dynamic Requirements
+  ansible.builtin.include_tasks: prereq.yml
+
+- name: Idm server
+  ansible.builtin.include_tasks: freeipa-server.yml
+  when: idm_group | default("") | string in group_names
