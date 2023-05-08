@@ -6,8 +6,11 @@
   when:
     - standalone_role
 
-- name: Dynamic Requirements
-  ansible.builtin.include_tasks: prereq.yml
+- name: Packages
+  ansible.builtin.import_tasks: prereq.yml
+
+- name: Facts
+  ansible.builtin.import_tasks: facts.yml
 
 - name: Idm server
   ansible.builtin.include_tasks: freeipa-server.yml

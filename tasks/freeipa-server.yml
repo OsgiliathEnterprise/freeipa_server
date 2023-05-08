@@ -43,5 +43,5 @@
     ipaserver_auto_forwarders: yes
     ipaadmin_password: "{{ company_realm_password }}"
     ipadm_password: "{{ company_ad_password }}"
-    ipaclient_no_ntp: "{{ True if (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] in ['container']) | default(False) }}"
+    ipaclient_no_ntp: "{{ True if (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] in ['container']) else False }}"
     ansible_become: true
