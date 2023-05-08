@@ -1,4 +1,4 @@
-Ansible SecureHost
+Ansible Freeipa server
 =========
 
 * Galaxy: [![Ansible Galaxy](https://img.shields.io/badge/galaxy-tcharl.freeipa_server-660198.svg?style=flat)](https://galaxy.ansible.com/tcharl/freeipa_server)

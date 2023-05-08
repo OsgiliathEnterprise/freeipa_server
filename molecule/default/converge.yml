@@ -6,18 +6,5 @@
     company_domain: "osgiliath.test" # That server's hostname will be should ipa."{{ company_domain }}"
     company_realm_password: '123ADMin'
     company_ad_password: '123ADmPass'
-    ipa_users_group_list:
-      - name: cmordante
-      - name: wheel
-    ipa_users_user_list:
-      - name: cmordant
-        first: Charlie
-        last: Mordant
-        pwd: "123123123"
-        update_password: on_create
-        passwordexpiration: "2023-01-19 23:59:59"
-        group: cmordante
-        groups:
-          - wheel
   roles:
     - role: tcharl.freeipa_server

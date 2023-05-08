@@ -1,9 +1,11 @@
 ---
 
 - name: Requirements | import fail2ban role
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: robertdebock.fail2ban
-  become: True
+  vars:
+    ansible_become: True
+    standalone_role: True
 
 - name: Requirements | install ntp
   ansible.builtin.import_role:
