@@ -26,3 +26,8 @@
   ansible.builtin.command: "hostname"
   changed_when: False
   register: securehost_current_hostname
+
+- name: Freeipa-server | compute server hostname
+  ansible.builtin.debug:
+    msg: "{{ hostname | default(securehost_current_hostname.stdout if securehost_current_hostname.stdout.endswith(company_domain) else idm_server_default_domain_prefix + '.' + company_domain) }}"
+  register: securehost_freeipa_server_host

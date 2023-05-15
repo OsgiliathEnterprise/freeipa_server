@@ -1,16 +1,13 @@
 ---
 
 - name: Requirements | import fail2ban role
-  ansible.builtin.include_role:
-    name: robertdebock.fail2ban
-  vars:
-    ansible_become: True
-    standalone_role: True
+  ansible.builtin.import_role:
+    name: tcharl.fail2ban
+  become: true
 
 - name: Requirements | install ntp
   ansible.builtin.import_role:
     name: geerlingguy.ntp
   become: True
   when:
-   - ansible_facts['virtualization_type'] is defined
-   - ansible_facts['virtualization_type'] not in ['container']
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
