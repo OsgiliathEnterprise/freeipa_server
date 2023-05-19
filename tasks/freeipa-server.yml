@@ -1,4 +1,9 @@
 ---
+- name: Freeipa-server | convert nic
+  ansible.builtin.debug:
+    msg: "{{ preferred_nic | default(omit) }}"
+  register: freeipa_server_preferred_nic
+
 
 - name: Freeipa-server | set hostname
   ansible.builtin.include_role:
@@ -7,7 +12,7 @@
     hostname: "{{ securehost_freeipa_server_host.msg }}"
     hostname_reboot: false
     ansible_become: true
-    preferred_nic: "{{ preferred_nic | default(omit)}}"
+    preferred_nic: "{{ freeipa_server_preferred_nic.msg | default(omit) }}"
   when:
     - securehost_freeipa_server_host.msg == idm_server_default_domain_prefix + '.' + company_domain
 
@@ -32,7 +37,7 @@
     ipaserver_firewalld_zone: "public"
     ipaserver_auto_reverse: True
     ipaserver_hostname: "{{ securehost_freeipa_server_host.msg }}"
-    ipaserver_ip_addresses: "{{ [ securehost_current_host_ip.msg ] }}"
+    ipaserver_ip_addresses: "{{ [securehost_current_host_ip.msg] }}"
     ipaserver_domain: "{{ company_domain }}"
     ipaserver_realm: "{{ company_domain | upper }}"
     # ipaserver_forwarders: [ ]
