@@ -40,6 +40,7 @@ verifier:
     PYTHONWARNINGS: "ignore:.*U.*mode is deprecated:DeprecationWarning"
   options:
     v: 1
+scenario:
   test_sequence:
     - dependency
     - cleanup
