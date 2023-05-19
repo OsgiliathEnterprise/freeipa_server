@@ -3,7 +3,7 @@ roles:
   # Install a role from Ansible Galaxy.
   - name: robertdebock.bootstrap
   - name: robertdebock.core_dependencies
-  - name: robertdebock.fail2ban
   - name: robertdebock.reboot
+  - name: robertdebock.fail2ban
   - name: robertdebock.epel
   - name: geerlingguy.ntp

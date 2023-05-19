@@ -1,7 +1,7 @@
 ---
 - name: Freeipa-server | convert nic
   ansible.builtin.debug:
-    msg: "{{ preferred_nic | default(omit) }}"
+    msg: "{{ preferred_nic | default('') }}"
   register: freeipa_server_preferred_nic
 
 
@@ -12,7 +12,7 @@
     hostname: "{{ securehost_freeipa_server_host.msg }}"
     hostname_reboot: false
     ansible_become: true
-    preferred_nic: "{{ freeipa_server_preferred_nic.msg | default(omit) }}"
+    preferred_nic: "{{ freeipa_server_preferred_nic.msg if freeipa_server_preferred_nic.msg.length > 0 else omit }}"
   when:
     - securehost_freeipa_server_host.msg == idm_server_default_domain_prefix + '.' + company_domain
 
