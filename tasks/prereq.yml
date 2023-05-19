@@ -6,6 +6,7 @@
   with_items:
     - iproute
     - hostname
+    - sysctl
   become: True
 
 # Not a fan of ipV6, thus followed the informations here: https://www.freeipa.org/page/Deployment_Recommendations
@@ -17,6 +18,8 @@
     state: present
     reload: yes
   become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
 
 - name: Prereq | Disables default ipv6
   ansible.posix.sysctl:
@@ -26,6 +29,8 @@
     state: present
     reload: yes
   become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
 
 - name: Prereq | Enables ipv6 for lo
   ansible.posix.sysctl:
@@ -35,6 +40,8 @@
     state: present
     reload: yes
   become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
 
 #- name: Prereq | remove ipv6 entries from etchost # freeipa seems to only allow ipv4
 #  ansible.builtin.lineinfile:
