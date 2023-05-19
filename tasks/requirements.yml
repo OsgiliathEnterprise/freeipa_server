@@ -5,6 +5,7 @@
     name: tcharl.fail2ban
   vars:
     ansible_become: true
+    standalone_role: true
 
 - name: Requirements | install ntp
   ansible.builtin.import_role:
