@@ -10,7 +10,9 @@ Wrapper on top of Ansible freeipa server to configure it in a simple way
 Requirements
 ------------
 
-Like any other platform role, executing `tox -e pipdep` and `tox -e dependency` 
+Like any other platform role, executing `tox -e pipdep` and `tox -e dependency`.
+
+Note | For obscure reasons, tests (and deployment I guess) will only work well if your bridge disables IPv6
 
 Role Variables
 --------------

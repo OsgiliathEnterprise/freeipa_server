@@ -5,6 +5,7 @@ roles:
   - name: robertdebock.core_dependencies
   - name: tcharl.ansible_routing
   - name: tcharl.ansible_hostname
+  - name: robertdebock.reboot
   - name: robertdebock.fail2ban
   - name: robertdebock.epel
   - name: geerlingguy.ntp
