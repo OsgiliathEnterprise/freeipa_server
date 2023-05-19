@@ -6,7 +6,6 @@
   with_items:
     - iproute
     - hostname
-    - sysctl
   become: True
 
 # Not a fan of ipV6, thus followed the informations here: https://www.freeipa.org/page/Deployment_Recommendations
