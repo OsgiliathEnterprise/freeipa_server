@@ -4,6 +4,7 @@ roles:
   - name: robertdebock.bootstrap
   - name: robertdebock.core_dependencies
   - name: tcharl.ansible_routing
+  - name: tcharl.fail2ban
   - name: tcharl.ansible_hostname
   - name: robertdebock.reboot
   - name: robertdebock.fail2ban
