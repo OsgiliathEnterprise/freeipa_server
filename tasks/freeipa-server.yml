@@ -40,6 +40,7 @@
     ipaserver_ip_addresses: "{{ [securehost_current_host_ip.msg] }}"
     ipaserver_domain: "{{ company_domain }}"
     ipaserver_realm: "{{ company_domain | upper }}"
+    allow_zone_overlap: "{{ allow_dns_zone_overlap | bool }}"
     # ipaserver_forwarders: [ ]
     ipaserver_no_reverse: False
     ipaserver_setup_dns: True

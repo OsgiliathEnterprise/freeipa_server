@@ -6,5 +6,5 @@ company_realm_password: '123ADMin'
 company_ad_password: '123ADmPass'
 company_realm_principal: 'admin' # cannot be modified
 idm_server_default_domain_prefix: 'idm'
-
+allow_dns_zone_overlap: false
 standalone_role: True
