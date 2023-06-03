@@ -50,3 +50,10 @@
     ipadm_password: "{{ company_ad_password }}"
     ipaclient_no_ntp: "{{ True if (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] in ['container']) else False }}"
     ansible_become: True
+
+- name: Freeipa-server | restart ipa service # sometimes fails for an unknown reason
+  ansible.builtin.service:
+    name: ipa
+    enabled: True
+    state: started
+  become: true

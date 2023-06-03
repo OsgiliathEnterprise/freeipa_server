@@ -1,10 +1,8 @@
 ---
-idm_group: 'ipaservers' # do not change: convention from the ipa roles
 # Free IPA server
 company_domain: "osgiliath.test" # That server's hostname will be ipa."{{ company_domain }}"
 company_realm_password: '123ADMin'
 company_ad_password: '123ADmPass'
-company_realm_principal: 'admin' # cannot be modified
 idm_server_default_domain_prefix: 'idm'
-allow_dns_zone_overlap: false
+allow_dns_zone_overlap: False
 standalone_role: True
