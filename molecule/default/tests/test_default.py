@@ -121,3 +121,28 @@ def test_user_exists(host):
     grep -c 'Last name: Administrator'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
+
+
+def test_acme_enabled(host):
+    command = r"""set -o pipefail && echo '123ADMin'| \
+    kinit admin > /dev/null && \
+    ipa-acme-manage status | \
+    grep -c 'ACME is enabled'"""
+    cmd = host.run(command)
+    assert '1' in cmd.stdout
+
+
+def test_http_opened_in_firewall(host):
+    command = r"""set -o pipefail && \
+    firewall-cmd --list-services --zone=public | \
+    grep -Ec 'http\s'"""
+    cmd = host.run(command)
+    assert '1' in cmd.stdout
+
+
+def test_https_opened_in_firewall(host):
+    command = r"""set -o pipefail && \
+    firewall-cmd --list-services --zone=public | \
+    grep -c 'https'"""
+    cmd = host.run(command)
+    assert '1' in cmd.stdout

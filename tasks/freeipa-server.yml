@@ -4,7 +4,6 @@
     msg: "{{ preferred_nic | default('') }}"
   register: freeipa_server_preferred_nic
 
-
 - name: Freeipa-server | set hostname
   ansible.builtin.include_role:
     name: tcharl.ansible_hostname
@@ -25,7 +24,7 @@
         enabled_services:
           #- service: freeipa-ldap
           #- service: freeipa-ldaps
-          #- service: dns
+          - service: http # ACME or replication
           - service: https
   tags:
     - dependency
@@ -56,4 +55,18 @@
     name: ipa
     enabled: True
     state: started
+  become: true
+
+- name: Freeipa-server | check acme status acme # sometimes fails for an unknown reason
+  ansible.builtin.command: "ipa-acme-manage status"
+  register: freeipa_server_status_acme
+  changed_when: False
+  become: true
+
+- name: Freeipa-server | activate acme # sometimes fails for an unknown reason
+  ansible.builtin.command: "ipa-acme-manage enable"
+  register: freeipa_server_activate_acme
+  changed_when: "'The ipa-acme-manage command was successful' in freeipa_server_activate_acme.stdout" # WRONG: unfortunately the command returns the same code the activation and the second one
+  failed_when: "'The ipa-acme-manage command failed.' in freeipa_server_activate_acme.stdout"
+  when: "'ACME is disabled' in freeipa_server_status_acme.stdout"
   become: true
