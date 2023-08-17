@@ -14,8 +14,13 @@
 
 - name: Facts | debug preferred_nic
   ansible.builtin.debug:
-    msg: "{{ preferred_nic | default(omit) }}"
-  register: freeipa_server_preferred_nic
+    msg: "{{ preferred_nic | default(current_host_facts.ansible_facts.ansible_default_ipv4.interface) }}"
+  register: idm_preferred_nic
+
+- name: Facts | debug freeipa_server_preferred_nic
+  ansible.builtin.debug:
+    var: preferred_nic
+    verbosity: 1
 
 - name: Facts | debug network facts
   ansible.builtin.debug:
@@ -24,7 +29,7 @@
 
 - name: Facts | compute ip if preferred_nic is not set
   ansible.builtin.debug:
-    msg: "{{ current_host_facts.ansible_facts['ansible_' + preferred_nic].ipv4.address if preferred_nic is defined else current_host_facts.ansible_facts.ansible_default_ipv4.address | default(current_host_facts.ansible_facts.ansible_all_ipv4_addresses[0]) }}"
+    msg: "{{ current_host_facts.ansible_facts['ansible_' + preferred_nic | replace('-', '_')].ipv4.address if preferred_nic is defined else current_host_facts.ansible_facts.ansible_default_ipv4.address | default(current_host_facts.ansible_facts.ansible_all_ipv4_addresses | first) }}"
   register: securehost_current_host_ip
 
 - name: Facts | retrieve current hostname

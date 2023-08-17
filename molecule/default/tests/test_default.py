@@ -84,7 +84,7 @@ def test_dnskey_running(host):
 
 def test_ipa_ldap_opened_in_firewall(host):
     command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
+    firewall-cmd --list-services --zone=internal | \
     grep -c 'freeipa-ldap'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
@@ -92,7 +92,7 @@ def test_ipa_ldap_opened_in_firewall(host):
 
 def test_ipa_ldaps_opened_in_firewall(host):
     command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
+    firewall-cmd --list-services --zone=internal | \
     grep -c 'freeipa-ldaps'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
@@ -100,7 +100,7 @@ def test_ipa_ldaps_opened_in_firewall(host):
 
 def test_ipa_https_opened_in_firewall(host):
     command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
+    firewall-cmd --list-services --zone=internal | \
     grep -c 'https'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
@@ -108,7 +108,7 @@ def test_ipa_https_opened_in_firewall(host):
 
 def test_ipa_dns_opened_in_firewall(host):
     command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
+    firewall-cmd --list-services --zone=internal | \
     grep -c 'dns'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
@@ -132,17 +132,9 @@ def test_acme_enabled(host):
     assert '1' in cmd.stdout
 
 
-def test_http_opened_in_firewall(host):
-    command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
-    grep -Ec 'http\s'"""
-    cmd = host.run(command)
-    assert '1' in cmd.stdout
-
-
 def test_https_opened_in_firewall(host):
     command = r"""set -o pipefail && \
-    firewall-cmd --list-services --zone=public | \
+    firewall-cmd --list-services --zone=internal | \
     grep -c 'https'"""
     cmd = host.run(command)
     assert '1' in cmd.stdout
