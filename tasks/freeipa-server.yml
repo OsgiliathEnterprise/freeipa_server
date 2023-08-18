@@ -4,12 +4,12 @@
   ansible.builtin.include_role:
     name: tcharl.ansible_hostname
   vars:
-    hostname: "{{ securehost_freeipa_server_host.msg }}"
+    hostname: "{{ freeipa_server_freeipa_server_host.msg }}"
     hostname_reboot: false
     ansible_become: true
-    preferred_nic: "{{ idm_preferred_nic.msg }}"
+    preferred_nic: "{{ freeipa_server_idm_nic.msg }}"
   when:
-    - securehost_freeipa_server_host.msg == idm_server_default_domain_prefix + '.' + company_domain
+    - freeipa_server_freeipa_server_host.msg == idm_server_default_domain_prefix + '.' + company_domain
 
 - name: Freeipa-server | opens freeipa services firewall
   ansible.builtin.include_role:
@@ -18,7 +18,7 @@
     firewalld_zones:
       - name: "{{ firewalld_zone }}"
         nics:
-          - "{{ idm_preferred_nic.msg }}"
+          - "{{ freeipa_server_idm_nic.msg }}"
         enabled_services:
           - service: https
           #- service: freeipa-ldap
@@ -32,8 +32,8 @@
   vars:
     ipaserver_firewalld_zone: "{{ firewalld_zone }}"
     ipaserver_auto_reverse: True
-    ipaserver_hostname: "{{ securehost_freeipa_server_host.msg }}"
-    ipaserver_ip_addresses: "{{ [securehost_current_host_ip.msg] }}"
+    ipaserver_hostname: "{{ freeipa_server_freeipa_server_host.msg }}"
+    ipaserver_ip_addresses: "{{ [freeipa_server_current_host_ip.msg] }}"
     ipaserver_domain: "{{ company_domain }}"
     ipaserver_realm: "{{ company_domain | upper }}"
     allow_zone_overlap: "{{ allow_dns_zone_overlap | bool }}"
