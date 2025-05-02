@@ -1,0 +1,60 @@
+---
+
+- name: Prereq | install package needed to gather ip and hostname
+  ansible.builtin.package:
+    name: "{{ item }}"
+  with_items:
+    - iproute
+    - hostname
+  become: True
+
+# Not a fan of ipV6, thus followed the informations here: https://www.freeipa.org/page/Deployment_Recommendations
+- name: Prereq | Disables all ipv6
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
+
+- name: Prereq | Disables default ipv6
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.default.disable_ipv6
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
+
+- name: Prereq | Enables ipv6 for lo
+  ansible.posix.sysctl:
+    name: net.ipv6.conf.lo.disable_ipv6
+    value: '0'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  become: yes
+  when:
+   - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
+
+#- name: Prereq | remove ipv6 entries from etchost # freeipa seems to only allow ipv4
+#  ansible.builtin.lineinfile:
+#    path: /etc/hosts
+#    regexp: '^::(.*)$'
+#    backrefs: yes
+#    line: '# ::\1'
+#    owner: root
+#    group: root
+#    mode: '0644'
+#  become: true
+
+#- name: Prereq | reboot after kernel modification
+#  ansible.builtin.include_role:
+#    name: robertdebock.reboot
+#  vars:
+#    ansible_become: true

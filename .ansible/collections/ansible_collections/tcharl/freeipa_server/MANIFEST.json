@@ -1,0 +1,34 @@
+{
+ "collection_info": {
+  "namespace": "tcharl",
+  "name": "freeipa_server",
+  "version": "1.0.1",
+  "authors": [
+   "Charlie Mordant <cmordant1@gmail.com>"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "freeipa",
+   "freeipaserver",
+   "linux"
+  ],
+  "description": "Role on top of the marvelous Freeipa server role to configure in compliancy with the Osgiliath platform topology",
+  "license": [
+   "Apache-2.0"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "https://github.com/OsgiliathEnterprise/freeipa_server",
+  "documentation": "https://github.com/OsgiliathEnterprise/freeipa_server/blob/master/README.md",
+  "homepage": "https://github.com/OsgiliathEnterprise/freeipa_server",
+  "issues": "https://github.com/OsgiliathEnterprise/freeipa_server/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "194b80bf6333cee05fefc196c3fecc33c00269fd2ffb581f6aa35025c2c216bb",
+  "format": 1
+ },
+ "format": 1
+}

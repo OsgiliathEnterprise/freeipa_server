@@ -1,0 +1,71 @@
+---
+
+- name: Freeipa-server | set hostname
+  ansible.builtin.include_role:
+    name: tcharl.ansible_hostname
+  vars:
+    hostname: "{{ freeipa_server_freeipa_server_host.msg }}"
+    hostname_reboot: false
+    ansible_become: true
+    preferred_nic: "{{ freeipa_server_idm_nic.msg }}"
+  when:
+    - freeipa_server_freeipa_server_host.msg == idm_server_default_domain_prefix + '.' + company_domain
+
+- name: Freeipa-server | opens freeipa services firewall
+  ansible.builtin.include_role:
+    name: tcharl.ansible_routing
+  vars:
+    firewalld_zones:
+      - name: "{{ firewalld_zone }}"
+        nics:
+          - "{{ freeipa_server_idm_nic.msg }}"
+        enabled_services:
+          - service: https
+          # - service: freeipa-ldap
+          - service: freeipa-ldaps
+  tags:
+    - dependency
+
+- name: Freeipa-server | configures and installs freeipa server
+  ansible.builtin.include_role:
+    name: freeipa.ansible_freeipa.ipaserver
+  vars:
+    ipaserver_firewalld_zone: "{{ firewalld_zone }}"
+    ipaserver_auto_reverse: True
+    ipaserver_hostname: "{{ freeipa_server_freeipa_server_host.msg }}"
+    ipaserver_ip_addresses: "{{ [freeipa_server_current_host_ip.msg] }}"
+    ipaserver_domain: "{{ company_domain }}"
+    ipaserver_realm: "{{ company_domain | upper }}"
+    allow_zone_overlap: "{{ allow_dns_zone_overlap | bool }}"
+    # ipaserver_forwarders: [ ]
+    ipaserver_no_reverse: False
+    ipaserver_setup_dns: True
+    ipaserver_setup_kra: True
+    ipaserver_auto_forwarders: True
+    ipaadmin_password: "{{ company_realm_password }}"
+    ipadm_password: "{{ company_ad_password }}"
+    ipaclient_no_ntp: "{{ True if (ansible_facts['virtualization_type'] is defined and ansible_facts['virtualization_type'] in ['container']) else False }}"
+    ansible_become: True
+
+- name: Freeipa-server | restart ipa service
+  ansible.builtin.service:
+    name: ipa
+    enabled: True
+    state: started
+  delay: 10
+  retries: 2 # sometimes fails for an unknown reason
+  become: true
+
+- name: Freeipa-server | check acme status acme
+  ansible.builtin.command: "ipa-acme-manage status"
+  register: freeipa_server_status_acme
+  changed_when: False
+  become: true
+
+- name: Freeipa-server | activate acme # sometimes fails for an unknown reason
+  ansible.builtin.command: "ipa-acme-manage enable"
+  register: freeipa_server_activate_acme
+  changed_when: "'The ipa-acme-manage command was successful' in freeipa_server_activate_acme.stdout" # WRONG: unfortunately the command returns the same code the activation and the second one
+  failed_when: "'The ipa-acme-manage command failed.' in freeipa_server_activate_acme.stdout"
+  when: "'ACME is disabled' in freeipa_server_status_acme.stdout"
+  become: true

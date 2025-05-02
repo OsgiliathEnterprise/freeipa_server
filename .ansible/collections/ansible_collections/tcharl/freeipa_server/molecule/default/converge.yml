@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    standalone_role: False
+    company_domain: "osgiliath.test" # That server's hostname will be should ipa."{{ company_domain }}"
+    company_realm_password: '123ADMin'
+    company_ad_password: '123ADmPass'
+  roles:
+    - role: tcharl.freeipa_server

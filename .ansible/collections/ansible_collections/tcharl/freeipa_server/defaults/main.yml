@@ -1,0 +1,9 @@
+---
+# Free IPA server
+company_domain: "osgiliath.test" # That server's hostname will be ipa."{{ company_domain }}"
+company_realm_password: '123ADMin'
+company_ad_password: '123ADmPass'
+idm_server_default_domain_prefix: 'idm'
+allow_dns_zone_overlap: False
+standalone_role: True
+firewalld_zone: 'internal'
