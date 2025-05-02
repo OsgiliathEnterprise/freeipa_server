@@ -1,7 +1,0 @@
----
-- name: Prepare
-  hosts: all
-  tasks:
-    - include_role:
-        name: tcharl.freeipa_server
-        tasks_from: requirements.yml

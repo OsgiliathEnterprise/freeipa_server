@@ -1,4 +1,6 @@
 .idea
+.ansible
+.poetry
 .cache
 build
 **/__pycache__
