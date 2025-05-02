@@ -6,4 +6,4 @@ company_ad_password: '123ADmPass'
 idm_server_default_domain_prefix: 'idm'
 allow_dns_zone_overlap: False
 standalone_role: True
-firewalld_zone: 'public'
+firewalld_zone: 'internal'
