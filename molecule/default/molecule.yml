@@ -8,7 +8,7 @@ dependency:
 driver:
   name: podman
 platforms:
-  - name: idm.osgiliath.test
+  - name: freeipaserver.osgiliath.test
     image: fedora:38
     # image: ubi9/ubi-init:latest
     dockerfile: ../common/Dockerfile.j2

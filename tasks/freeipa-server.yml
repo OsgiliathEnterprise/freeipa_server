@@ -21,8 +21,8 @@
           - "{{ freeipa_server_idm_nic.msg }}"
         enabled_services:
           - service: https
-          #- service: freeipa-ldap
-          #- service: freeipa-ldaps
+          # - service: freeipa-ldap
+          - service: freeipa-ldaps
   tags:
     - dependency
 
