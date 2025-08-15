@@ -6,7 +6,15 @@
   with_items:
     - iproute
     - hostname
+    - NetworkManager
   become: True
+
+- name: Prereq | Start networkManager service
+  ansible.builtin.service:
+    name: NetworkManager
+    enabled: True
+    state: started
+  become: true
 
 # Not a fan of ipV6, thus followed the informations here: https://www.freeipa.org/page/Deployment_Recommendations
 - name: Prereq | Disables all ipv6

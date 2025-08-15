@@ -1,6 +1,7 @@
 .idea
 .ansible
 .poetry
+.tox
 .cache
 build
 **/__pycache__

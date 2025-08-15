@@ -71,6 +71,9 @@ jobs:
       - name: pip install packages
         run: |
           pip3 install wheel setuptools tox
+          usermod --add-subgids 10000-75535 $USERNAME
+          usermod --add-subuids 10000-75535 $USERNAME
+          podman system migrate
       - name: Test with podman
         run: |
           cd tcharl.freeipa_server
