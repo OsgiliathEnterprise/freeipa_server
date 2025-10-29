@@ -7,14 +7,9 @@
     - iproute
     - hostname
     - NetworkManager
+    - systemd-networkd
+    - systemd-resolved
   become: True
-
-- name: Prereq | Start networkManager service
-  ansible.builtin.service:
-    name: NetworkManager
-    enabled: True
-    state: started
-  become: true
 
 # Not a fan of ipV6, thus followed the informations here: https://www.freeipa.org/page/Deployment_Recommendations
 - name: Prereq | Disables all ipv6
@@ -49,6 +44,27 @@
   become: yes
   when:
    - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
+
+- name: Prereq | Start Systemd network service
+  ansible.builtin.service:
+    name: systemd-networkd
+    enabled: True
+    state: started
+  become: true
+
+- name: Prereq | Start Systemd Resolved service
+  ansible.builtin.service:
+    name: systemd-resolved
+    enabled: True
+    state: started
+  become: true
+
+- name: Prereq | Start NetworkManager service
+  ansible.builtin.service:
+    name: NetworkManager
+    enabled: True
+    state: started
+  become: true
 
 #- name: Prereq | remove ipv6 entries from etchost # freeipa seems to only allow ipv4
 #  ansible.builtin.lineinfile:
