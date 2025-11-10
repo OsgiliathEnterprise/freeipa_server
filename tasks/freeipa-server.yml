@@ -8,8 +8,6 @@
     hostname_reboot: false
     ansible_become: true
     preferred_nic: "{{ freeipa_server_exposed_nic }}"
-  when:
-    - freeipa_server_hostname == idm_server_default_domain_prefix + '.' + company_domain
 
 - name: Freeipa-server | opens freeipa services firewall
   ansible.builtin.include_role:

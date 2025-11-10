@@ -17,36 +17,26 @@
     var: preferred_nic
     verbosity: 3
 
-- name: Facts | set exposed_nic
-  ansible.builtin.set_fact:
-    freeipa_server_exposed_nic: "{{ preferred_nic | default(freeipa_server_current_host_facts.ansible_facts.ansible_default_ipv4.interface) }}"
-    cacheable: yes
-
-- name: Facts | debug preferred_nic
-  ansible.builtin.debug:
-    msg: "{{ freeipa_server_exposed_nic }}"
-    verbosity: 2
-
-- name: Facts | set exposed_ip
-  ansible.builtin.set_fact:
-    freeipa_server_exposed_ip: "{{ freeipa_server_current_host_facts.ansible_facts['ansible_' + freeipa_server_idm_nic.msg | replace('-', '_')].ipv4.address if freeipa_server_idm_nic.msg is defined else freeipa_server_current_host_facts.ansible_facts.ansible_default_ipv4.address | default(freeipa_server_current_host_facts.ansible_facts.ansible_all_ipv4_addresses | first) }}"
-    cacheable: yes
-
-- name: Facts | compute ip if preferred_nic is not set
-  ansible.builtin.debug:
-    msg: "{{ freeipa_server_exposed_ip }}"
-    verbosity: 2
-
 - name: Facts | retrieve current hostname
   ansible.builtin.command: "hostname"
   changed_when: False
   register: freeipa_server_current_hostname
 
-- name: Facts | compute hostname
+- name: Facts | set IDM facts
   ansible.builtin.set_fact:
+    freeipa_server_exposed_nic: "{{ preferred_nic | default(freeipa_server_current_host_facts.ansible_facts.ansible_default_ipv4.interface) }}"
     freeipa_server_hostname: "{{ hostname if hostname is defined and hostname.endswith(company_domain) else hostname + '.' + company_domain if hostname is defined else freeipa_server_current_hostname.stdout if freeipa_server_current_hostname.stdout.endswith(company_domain) else idm_server_default_domain_prefix + '.' + company_domain }}"
+    freeipa_server_exposed_ip: "{{ freeipa_server_current_host_facts.ansible_facts['ansible_' + freeipa_server_exposed_nic | replace('-', '_')].ipv4.address if freeipa_server_exposed_nic is defined else freeipa_server_current_host_facts.ansible_facts.ansible_default_ipv4.address | default(freeipa_server_current_host_facts.ansible_facts.ansible_all_ipv4_addresses | first) }}"
+    cacheable: yes
 
-- name: Facts | compute server hostname
+- name: Facts | IDM preferred_nic
+  ansible.builtin.debug:
+    msg: "{{ freeipa_server_exposed_nic }}"
+
+- name: Facts | IDM IP
+  ansible.builtin.debug:
+    msg: "{{ freeipa_server_exposed_ip }}"
+
+- name: Facts | IDM hostname
   ansible.builtin.debug:
     msg: "{{ freeipa_server_hostname }}"
-    verbosity: 2
