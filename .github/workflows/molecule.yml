@@ -67,12 +67,13 @@ jobs:
 #          sudo apt upgrade
       - name: install aptitude packages
         run: |
-          sudo apt -y install sudo python3 python3-pip podman
+          sudo apt -y install sudo python3 python3-pip python3-wheel python3-setuptools podman
       - name: pip install packages
         run: |
-          pip3 install wheel setuptools tox
-          podman system migrate
+          sudo pip3 install -I tox
       - name: Test with podman
+        env:
+          ANSIBLE_REMOTE_TMP: /var/tmp/ansible-remote
         run: |
           cd tcharl.freeipa_server
-          tox -e test-exec
+          sudo tox -e test-exec

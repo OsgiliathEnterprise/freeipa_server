@@ -9,7 +9,7 @@ driver:
   name: podman
 platforms:
   - name: idm.osgiliath.test
-    image: fedora:38
+    image: fedora:44
     # image: ubi9/ubi-init:latest
     dockerfile: ../common/Dockerfile.j2
     # registry:
@@ -32,9 +32,15 @@ platforms:
       - ipaservers
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_COLLECTIONS_PATH: "${MOLECULE_PROJECT_DIRECTORY}/../community-collections:${ANSIBLE_COLLECTIONS_PATH}"
+    ANSIBLE_REMOTE_TMP: /var/tmp/ansible-remote
+    ANSIBLE_ASYNC_DIR: "/tmp/.ansible_async"
+  options:
+    vvv: True
   config_options:
     defaults:
-      remote_tmp: /tmp
+      remote_tmp: /var/tmp/ansible-remote
 verifier:
   name: testinfra
   env:
