@@ -34,7 +34,7 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_COLLECTIONS_PATH: "${MOLECULE_PROJECT_DIRECTORY}/../community-collections:${ANSIBLE_COLLECTIONS_PATH}"
-    ANSIBLE_COLLECTIONS_PATHS: "${MOLECULE_PROJECT_DIRECTORY}/../community-collections:${ANSIBLE_COLLECTIONS_PATH}"
+    ANSIBLE_COLLECTIONS_PATHS: "${MOLECULE_PROJECT_DIRECTORY}/../community-collections:${ANSIBLE_COLLECTIONS_PATHS}"
     ANSIBLE_REMOTE_TMP: /var/tmp/ansible-remote
     ANSIBLE_ASYNC_DIR: "/tmp/.ansible_async"
   options:
