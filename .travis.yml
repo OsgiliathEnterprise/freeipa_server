@@ -1,10 +1,10 @@
 ---
 
-dist: jammy
+dist: noble
 
 language: python
 python:
-  - "3.11"
+  - "3.13"
 addons:
   apt:
     sources:
