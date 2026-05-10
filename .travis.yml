@@ -16,10 +16,14 @@ addons:
       - dnsmasq-base
       - ebtables
       - virtinst
-      - libvirt-dev
-      - libvirt-daemon-system
       - qemu-kvm
       - qemu-utils
+      - libvirt-dev
+      - libvirt-daemon-system
+      - libguestfs-tools
+      - libxslt-dev
+      - libxml2-dev
+      - zlib1g-dev
       - ruby-dev
       - ca-certificates
       - curl
