@@ -25,7 +25,7 @@ addons:
       - libxml2-dev
       - zlib1g-dev
       - ruby-dev
-      - ruby- fog-libvirt
+      - ruby-fog-libvirt
       - ca-certificates
       - curl
       - gcc
