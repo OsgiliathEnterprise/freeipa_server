@@ -11,7 +11,7 @@ driver:
     name: parallels
 platforms:
   - name: volumes.osgiliath.test
-    box: ${TESTBOX:-bento/fedora-40}
+    box: ${TESTBOX:-bento/fedora-41}
     provider_options:
       cpus: 2
       memory: 2048
