@@ -10,7 +10,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: Fedora-Molecule-Volumes-KVM
+  - name: freeipa-server.osgiliath.test
     box: ${TESTBOX:-fedora/41-cloud-base}
     provider_options:
       driver: "kvm"

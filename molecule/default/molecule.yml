@@ -10,7 +10,7 @@ driver:
   provider:
     name: virtualbox
 platforms:
-  - name: idm.osgiliath.test
+  - name: freeipa-server.osgiliath.test
     box: ${TESTBOX:-fedora/41-cloud-base}
     provider_options:
       cpus: 2

@@ -10,7 +10,7 @@ driver:
   provider:
     name: parallels
 platforms:
-  - name: volumes.osgiliath.test
+  - name: freeipa-server.osgiliath.test
     box: ${TESTBOX:-bento/fedora-41}
     provider_options:
       cpus: 2
