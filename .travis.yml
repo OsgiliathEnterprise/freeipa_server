@@ -25,6 +25,7 @@ addons:
       - libxml2-dev
       - zlib1g-dev
       - ruby-dev
+      - ruby- fog-libvirt
       - ca-certificates
       - curl
       - gcc
@@ -33,8 +34,6 @@ addons:
       - vagrant
 
 install:
-  - sudo gem update --system
-  - sudo gem install fog-libvirt --no-document
   - vagrant plugin install vagrant-libvirt
   - pip install wheel pyopenssl tox ansible
   - sudo chmod o+rwx /var/run/libvirt/libvirt-sock
