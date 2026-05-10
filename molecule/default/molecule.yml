@@ -20,7 +20,7 @@ platforms:
       - "customize ['storagectl', :id, '--name', 'IDE', '--hostiocache', 'on']"
     provider_override_args:
       - "persistent_storage.enabled = true"
-      - "persistent_storage.location = 'molecule-volumes.vdi'"
+      - "persistent_storage.location = 'molecule-freeipa-server.vdi'"
       - "persistent_storage.size = 100"
       - "persistent_storage.mount = false"
       - "persistent_storage.diskdevice = '/dev/sdb'"
