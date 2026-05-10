@@ -30,7 +30,7 @@ addons:
 
 install:
   - vagrant plugin install vagrant-libvirt
-  - pip install wheel pyopenssl tox
+  - pip install wheel pyopenssl tox ansible
   - sudo chmod o+rwx /var/run/libvirt/libvirt-sock
 
 script:
