@@ -11,7 +11,7 @@ driver:
     name: libvirt
 platforms:
   - name: freeipa-server.osgiliath.test
-    box: ${TESTBOX:-fedora/44-cloud-base}
+    image_url: ${TESTBOX:-https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-libvirt-44-1.7.x86_64.vagrant.libvirt.box}
     provider_options:
       driver: "kvm"
       cpus: 2
