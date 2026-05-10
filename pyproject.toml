@@ -21,8 +21,9 @@ flake8 = "*"
 yamllint = "*"
 tox = "*"
 pytest-testinfra = "*"
+python-vagrant = "*"
 molecule = ">=6.0.0,<25.0"
-molecule-plugins = {version = "*", extras = ["podman"]}
+molecule-plugins = { version = "*", extras = ["vagrant"] }
 ansible-lint = { version = "v26.4.0", markers = "platform_system != 'Windows'" }
 
 [build-system]

@@ -1,5 +1,7 @@
 exclude_paths:
  - .cache/
+ - .ansible
+ - .git/
  - .github/
  - .poetry/
  - .tox/

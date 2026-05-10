@@ -727,6 +727,7 @@ files = [
 
 [package.dependencies]
 molecule = ">=6.0.0a1"
+python-vagrant = {version = "*", optional = true, markers = "extra == \"vagrant\""}
 
 [package.extras]
 docker = ["docker (>=4.3.1)", "requests", "selinux ; sys_platform == \"linux\"", "selinux ; sys_platform == \"linux2\""]
@@ -960,6 +961,21 @@ platformdirs = ">=4.3.6,<5"
 [package.extras]
 docs = ["furo (>=2025.12.19)", "sphinx (>=9.1)", "sphinx-autodoc-typehints (>=3.6.3)", "sphinxcontrib-mermaid (>=2)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.5.4)", "pytest (>=8.3.5)", "pytest-mock (>=3.14)", "setuptools (>=75.1)"]
+
+[[package]]
+name = "python-vagrant"
+version = "1.0.0"
+description = "Python bindings for interacting with Vagrant virtual machines."
+optional = false
+python-versions = ">=3.8"
+groups = ["dev"]
+files = [
+    {file = "python-vagrant-1.0.0.tar.gz", hash = "sha256:a8fe93ccf2ff37ecc95ec2f49ea74a91a6ce73a4db4a16a98dd26d397cfd09e5"},
+    {file = "python_vagrant-1.0.0-py3-none-any.whl", hash = "sha256:9f24a29e3f7b17d79c399d0f358d9cc1b76fd5495698c438a39cdae89de467f0"},
+]
+
+[package.extras]
+test = ["coverage (>=6.3)", "pytest (>=7.0.0)", "pytest-cov (>=3.0.0)"]
 
 [[package]]
 name = "pytokens"
@@ -1493,4 +1509,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "ruff", "sph
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "59e05437b0f29ad5276574d7ac6608600cef5e7d0c0e7deb6b16182f7d0c473c"
+content-hash = "e167a1fbb18d5ea573878569d593d94242bd59beef8e00a64e187f40e4745101"

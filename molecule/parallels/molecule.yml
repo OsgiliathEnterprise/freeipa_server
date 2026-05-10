@@ -3,26 +3,26 @@ dependency:
   name: galaxy
   enabled: ${DEPENDENCY_ENABLED:-True}
   options:
-    role-file: ${REQUIREMENTS_PATH:-requirements-standalone.yml}
+    role-file: ${REQUIREMENTS_PATH:-requirements.yml}
     requirements-file: requirements-collections.yml
 driver:
   name: vagrant
   provider:
-    name: virtualbox
+    name: parallels
 platforms:
-  - name: idm.osgiliath.test
-    box: ${TESTBOX:-fedora/39-cloud-base}
+  - name: volumes.osgiliath.test
+    box: ${TESTBOX:-bento/fedora-40}
     provider_options:
       cpus: 2
       memory: 2048
+    interfaces:
+      - type: dhcp
+        # ip: "192.168.56.5"
+        auto_config: true
+        network_name: private_network
+        # virtualbox__intnet: "internalnetwork"
     provider_raw_config_args:
-      - "customize ['storagectl', :id, '--name', 'IDE', '--hostiocache', 'on']"
-    provider_override_args:
-      - "persistent_storage.enabled = true"
-      - "persistent_storage.location = 'molecule-volumes.vdi'"
-      - "persistent_storage.size = 100"
-      - "persistent_storage.mount = false"
-      - "persistent_storage.diskdevice = '/dev/sdb'"
+      - "customize ['set', :id, '--device-add', 'hdd', '--size', '840']"
     groups:
       - ipaservers
 provisioner:
@@ -36,6 +36,12 @@ provisioner:
   config_options:
     defaults:
       remote_tmp: /var/tmp/ansible-remote
+#  config_options:
+#    defaults:
+#      forks: 20
+#   ssh_connection:
+#     pipelining: true
+#      ssh_args: -o ControlMaster=auto -o ControlPersist=6000s
 verifier:
   name: testinfra
   env:
@@ -43,6 +49,7 @@ verifier:
   options:
     v: 1
 scenario:
+  name: parallels
   test_sequence:
     - dependency
     - cleanup
