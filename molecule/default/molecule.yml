@@ -11,7 +11,8 @@ driver:
     name: virtualbox
 platforms:
   - name: freeipa-server.osgiliath.test
-    image_url: ${TESTBOX:-https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-VirtualBox-44-1.7.x86_64.vagrant.virtualbox.box}
+    box: ${TESTBOX:-generic/fedora39}
+    # image_url: ${TESTBOX:-https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-VirtualBox-44-1.7.x86_64.vagrant.virtualbox.box}
     provider_options:
       cpus: 2
       memory: 2048
