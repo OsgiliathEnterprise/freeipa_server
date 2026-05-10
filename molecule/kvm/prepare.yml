@@ -1,7 +1,6 @@
 ---
 - name: Prepare
   hosts: all
-  gather_facts: false
   tasks:
     - name: "install fedora ansible prerequisites"
       ansible.builtin.raw: dnf install -y python3 python3-libdnf5
