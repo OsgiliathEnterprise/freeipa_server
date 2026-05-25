@@ -11,7 +11,7 @@ driver:
     name: parallels
 platforms:
   - name: freeipa-server.osgiliath.test
-    box: ${TESTBOX:-bento/fedora-41}
+    box: ${TESTBOX:-bento/fedora-43}
     provider_options:
       cpus: 2
       memory: 2048
