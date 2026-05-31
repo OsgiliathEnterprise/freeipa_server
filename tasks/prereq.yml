@@ -7,7 +7,6 @@
     - iproute
     - hostname
     - NetworkManager
-    - systemd-networkd
     - systemd-resolved
   become: True
 
@@ -45,9 +44,9 @@
   when:
    - ansible_facts['virtualization_type'] is not defined or ansible_facts['virtualization_type'] not in ['container']
 
-- name: Prereq | Start Systemd network service
+- name: Prereq | Start NetworkManager service
   ansible.builtin.service:
-    name: systemd-networkd
+    name: NetworkManager
     enabled: True
     state: started
   become: true
@@ -59,26 +58,8 @@
     state: started
   become: true
 
-- name: Prereq | Start NetworkManager service
-  ansible.builtin.service:
-    name: NetworkManager
-    enabled: True
-    state: started
+- name: Prereq | reload NetworkManager to have it rely on systemd-resolved
+  ansible.builtin.command:
+    cmd: "nmcli general reload"
   become: true
-
-# - name: Prereq | remove ipv6 entries from etchost # freeipa seems to only allow ipv4
-#  ansible.builtin.lineinfile:
-#    path: /etc/hosts
-#    regexp: '^::(.*)$'
-#    backrefs: yes
-#    line: '# ::\1'
-#    owner: root
-#    group: root
-#    mode: '0644'
-#  become: true
-
-# - name: Prereq | reboot after kernel modification
-#  ansible.builtin.include_role:
-#    name: robertdebock.reboot
-#  vars:
-#    ansible_become: true
+  changed_when: false

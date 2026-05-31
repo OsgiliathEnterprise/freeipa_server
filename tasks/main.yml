@@ -15,3 +15,6 @@
 
 - name: Idm server
   ansible.builtin.include_tasks: freeipa-server.yml
+
+- name: Post install configuration
+  ansible.builtin.include_tasks: post-install.yml

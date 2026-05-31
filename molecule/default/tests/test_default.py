@@ -154,3 +154,10 @@ def test_https_opened_in_firewall(host):
     with host.sudo():
         cmd = host.run(command)
     assert '1' in cmd.stdout
+
+def test_client_reach_idm(host):
+    command = """resolvectl status | \
+    grep -c 'osgiliath.test'"""
+    with host.sudo():
+        cmd = host.run(command)
+    assert '1' in cmd.stdout

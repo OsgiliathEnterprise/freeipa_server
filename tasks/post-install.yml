@@ -1,0 +1,20 @@
+---
+
+- name: Ipa_server | add internal domain dns
+  ansible.builtin.template:
+    src: systemd-resolved.conf.d/head.j2
+    dest: /etc/systemd/resolved.conf.d/head.conf
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+  vars:
+    dns_master_ip_to_set: "{{ freeipa_server_exposed_ip }}"
+    domain: "{{ company_domain }}"
+
+- name: Ipa_server | restart systemd-resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: restarted
+  changed_when: false
+  become: true
