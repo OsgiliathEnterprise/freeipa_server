@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: "install fedora ansible prerequisites"
-      ansible.builtin.raw: dnf install -y python3 python3-libdnf5
+      ansible.builtin.raw: dnf install -y python3 python3-libdnf5 && chmod -R 777 /tmp
       changed_when: false
       become: true
     - include_role:
