@@ -1,6 +1,13 @@
 ---
 
-- name: Ipa_server | add internal domain dns
+- name: Post_Install | create resolved.conf.d directory
+  become: true
+  ansible.builtin.file:
+    state: directory
+    dest: '/etc/systemd/resolved.conf.d'
+    mode: "0755"
+
+- name: Post_Install | add internal domain dns
   ansible.builtin.template:
     src: systemd-resolved.conf.d/head.j2
     dest: /etc/systemd/resolved.conf.d/head.conf
@@ -12,7 +19,7 @@
     dns_master_ip_to_set: "{{ freeipa_server_exposed_ip }}"
     domain: "{{ company_domain }}"
 
-- name: Ipa_server | restart systemd-resolved
+- name: Post_Install | restart systemd-resolved
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
