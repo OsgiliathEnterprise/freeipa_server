@@ -6,8 +6,8 @@
   vars:
     hostname: "{{ freeipa_server_hostname }}"
     hostname_reboot: false
-    ansible_become: true
     preferred_nic: "{{ freeipa_server_exposed_nic }}"
+    ansible_become: true
 
 - name: Freeipa-server | opens freeipa services firewall
   ansible.builtin.include_role:
