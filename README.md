@@ -19,6 +19,11 @@ Role Variables
 
 Take a look at the [molecule tests](./molecule/default/converge.yml) tests and the [default variables](./defaults/main.yml)
 
+Run tests
+-------------
+
+`uv tool run --python 3.13 --with tox tox -e test-exec-monorepo -- --scenario-name=parallels`
+
 Dependencies
 ------------
 

@@ -1,34 +1,51 @@
-[tool.poetry]
+[project]
 name = "tcharl.freeipa_server"
 version = "0.1.0"
 description = "Freeipa server configuration with a minimum of parameter"
-authors = ["Charlie Mordant <cmordant1@gmail.com>"]
-license = "Apache2"
+authors = [{ name = "Charlie Mordant", email = "cmordant1@gmail.com" }]
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.14"
 readme = "README.md"
-include = ["defaults", "files", "handlers", "meta", "tasks", "templates", "vars"]
-packages = [
-    {include = "meta/**/*.py"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "ansible>=11.5.0,<12",
+    "jmespath>=1.0.1,<2",
+    "netaddr>=1.3.0,<2",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.11"
-ansible = "^11.5.0"
-jmespath = "^1.0.1"
-netaddr = "^1.3.0"
+[dependency-groups]
+dev = [
+    "flake8",
+    "yamllint",
+    "tox",
+    "pytest-testinfra",
+    "python-vagrant",
+    "molecule>=6.0.0,<25.0",
+    "molecule-plugins[vagrant]",
+    "ansible-lint==26.4.0 ; platform_system != 'Windows'",
+]
 
-[tool.poetry.group.dev.dependencies]
-flake8 = "*"
-yamllint = "*"
-tox = "*"
-pytest-testinfra = "*"
-python-vagrant = "*"
-molecule = ">=6.0.0,<25.0"
-molecule-plugins = { version = "*", extras = ["vagrant"] }
-ansible-lint = { version = "v26.4.0", markers = "platform_system != 'Windows'" }
+[tool.uv]
+default-groups = "all"
+
+[tool.hatch.build.targets.sdist]
+include = ["meta/**/*.py"]
+
+[tool.hatch.build.targets.sdist.force-include]
+defaults = "defaults"
+meta = "meta"
+tasks = "tasks"
+templates = "templates"
+vars = "vars"
+
+[tool.hatch.build.targets.wheel]
+include = ["meta/**/*.py"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.requires-plugins]
-poetry-plugin-export = ">=1.8"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
