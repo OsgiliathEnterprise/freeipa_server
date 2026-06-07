@@ -26,7 +26,7 @@ dev = [
     "pytest-testinfra",
     "python-vagrant",
     "molecule>=25.1.0,<26.0",
-    "molecule-plugins[vagrant]==25.8.12",
+    "molecule-plugins[vagrant]",
     "ansible-lint==26.4.0 ; platform_system != 'Windows'",
 ]
 

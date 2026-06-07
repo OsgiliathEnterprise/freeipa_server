@@ -898,7 +898,7 @@ dev = [
     { name = "ansible-lint", marker = "sys_platform != 'win32'", specifier = "==26.4.0" },
     { name = "flake8" },
     { name = "molecule", specifier = ">=25.1.0,<26.0" },
-    { name = "molecule-plugins", extras = ["vagrant"], specifier = "==25.8.12" },
+    { name = "molecule-plugins", extras = ["vagrant"] },
     { name = "pytest-testinfra" },
     { name = "python-vagrant" },
     { name = "tox" },
