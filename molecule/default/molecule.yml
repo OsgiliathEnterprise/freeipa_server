@@ -50,7 +50,7 @@ scenario:
     - create
     - prepare
     - converge
-    # - idempotence
+    # - idempotence when https://github.com/freeipa/ansible-freeipa/pull/1432 will be accepted
     - side_effect
     - verify
     - cleanup

@@ -63,7 +63,7 @@
 - name: Freeipa-server | activate acme # sometimes fails for an unknown reason
   ansible.builtin.command: "ipa-acme-manage enable"
   register: freeipa_server_activate_acme
-  changed_when: "'The ipa-acme-manage command was successful' in freeipa_server_activate_acme.stdout" # WRONG: unfortunately, the command returns the same code the activation and the second one
+  changed_when: true
   failed_when: "'The ipa-acme-manage command failed.' in freeipa_server_activate_acme.stdout"
   when: "'ACME is disabled' in freeipa_server_status_acme.stdout"
   become: true

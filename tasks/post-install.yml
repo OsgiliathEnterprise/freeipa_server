@@ -18,10 +18,11 @@
   vars:
     dns_master_ip_to_set: "{{ freeipa_server_exposed_ip }}"
     domain: "{{ company_domain }}"
+  register: freeipa_server_resolved_dns_template
 
 - name: Post_Install | restart systemd-resolved
   ansible.builtin.systemd:
     name: systemd-resolved
     state: restarted
-  changed_when: false
+  when: freeipa_server_resolved_dns_template.changed
   become: true
