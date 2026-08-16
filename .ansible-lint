@@ -12,4 +12,5 @@ skip_list:
  - experimental  # all rules tagged as experimental
  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
  - var-naming[no-role-prefix]  # Variable name {} should contain role name {} as a prefix
+ - no-handler # used in tasks/post-install.yml#Post_Install | restart systemd-resolved
  - galaxy[no-changelog]

@@ -2,6 +2,7 @@
 .ansible
 .poetry
 .tox
+.venv
 .cache
 build
 dist

@@ -9,6 +9,7 @@ ignore: |
   .poetry
   .tox
   .travis.yml
+  .venv
 rules:
   braces:
     max-spaces-inside: 1

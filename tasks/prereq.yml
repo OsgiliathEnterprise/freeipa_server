@@ -69,4 +69,5 @@
   ansible.builtin.command:
     cmd: "nmcli general reload"
   become: true
+  changed_when: False
   when: "'systemd/resolve' not in freeipa_server_resolv_conf_target.stdout"
